@@ -556,6 +556,16 @@
             line-height: 1.7;
         }
 
+        .card-image {
+            display: block;
+            max-width: 100%;
+            max-height: 360px;
+            margin-top: 12px;
+            border-radius: 12px;
+            border: 1px solid #e3e3e3;
+            cursor: zoom-in;
+        }
+
         .lesson-file-link {
             display: inline-block;
             margin-top: 10px;
@@ -783,6 +793,17 @@
 
         <div class="feed-section">
 
+            <h3>📢 التبليغات</h3>
+
+            <div id="studentAnnouncementsList">
+                <div class="empty-note">جارٍ التحميل...</div>
+            </div>
+
+        </div>
+
+
+        <div class="feed-section">
+
             <h3>📚 الدروس المستلمة</h3>
 
             <div id="studentLessonsList">
@@ -892,6 +913,10 @@
 
         <button id="adminNavWarnings" class="nav-btn">
             ⚠️ الإنذارات
+        </button>
+
+        <button id="adminNavAnnouncements" class="nav-btn">
+            📢 التبليغات
         </button>
 
         <button id="adminNavLessons" class="nav-btn">
@@ -1121,6 +1146,51 @@
 
 
         <!-- LESSONS VIEW (ADMIN) -->
+
+        <div id="adminAnnouncementsView" class="hidden">
+
+            <div class="section">
+
+                <div class="section-header">
+                    <h3>إرسال تبليغ جديد</h3>
+                </div>
+
+                <form id="adminAnnForm">
+
+                    <label>عنوان التبليغ</label>
+
+                    <input id="adminAnnTitle" type="text" placeholder="مثال: تعطيل الدوام يوم الجمعة القادمة" required>
+
+                    <label>نص التبليغ</label>
+
+                    <textarea id="adminAnnContent" placeholder="اكتب نص التبليغ هنا..."></textarea>
+
+                    <label>صورة (اختياري)</label>
+
+                    <input id="adminAnnImage" type="file" accept="image/*">
+
+                    <button id="adminAnnBtn" type="submit" class="btn-primary">إرسال التبليغ</button>
+
+                </form>
+
+                <div id="adminAnnMessage" class="message"></div>
+
+            </div>
+
+            <div class="section">
+
+                <div class="section-header">
+                    <h3>التبليغات المرسلة</h3>
+                </div>
+
+                <div id="adminAnnList">
+                    <div class="empty-note">جارٍ التحميل...</div>
+                </div>
+
+            </div>
+
+        </div>
+
 
         <div id="adminLessonsView" class="hidden">
 
@@ -1355,6 +1425,10 @@
             🕐 الحضور
         </button>
 
+        <button id="teacherTabAnnouncements" class="nav-btn">
+            📢 التبليغات
+        </button>
+
         <button id="teacherTabLessons" class="nav-btn">
             📚 الدروس
         </button>
@@ -1485,6 +1559,51 @@
 
         <!-- LESSONS VIEW -->
 
+        <div id="teacherAnnouncementsView" class="hidden">
+
+            <div class="section">
+
+                <div class="section-header">
+                    <h3>إرسال تبليغ جديد</h3>
+                </div>
+
+                <form id="teacherAnnForm">
+
+                    <label>عنوان التبليغ</label>
+
+                    <input id="teacherAnnTitle" type="text" placeholder="مثال: موعد الاختبار القادم" required>
+
+                    <label>نص التبليغ</label>
+
+                    <textarea id="teacherAnnContent" placeholder="اكتب نص التبليغ هنا..."></textarea>
+
+                    <label>صورة (اختياري)</label>
+
+                    <input id="teacherAnnImage" type="file" accept="image/*">
+
+                    <button id="teacherAnnBtn" type="submit" class="btn-primary">إرسال التبليغ</button>
+
+                </form>
+
+                <div id="teacherAnnMessage" class="message"></div>
+
+            </div>
+
+            <div class="section">
+
+                <div class="section-header">
+                    <h3>التبليغات المرسلة</h3>
+                </div>
+
+                <div id="teacherAnnList">
+                    <div class="empty-note">جارٍ التحميل...</div>
+                </div>
+
+            </div>
+
+        </div>
+
+
         <div id="teacherLessonsView" class="hidden">
 
             <div class="section">
@@ -1517,6 +1636,14 @@
                         id="lessonFile"
                         type="file"
                         accept="application/pdf"
+                    >
+
+                    <label>صورة (اختياري)</label>
+
+                    <input
+                        id="lessonImage"
+                        type="file"
+                        accept="image/*"
                     >
 
                     <button
@@ -1599,32 +1726,6 @@
 
     </div>
 
-</div>
-
-
-<!-- =====================================================
-     ADMIN STUDENT ATTENDANCE HISTORY MODAL
-===================================================== -->
-<div id="adminStudentAttendanceModal" class="modal hidden">
-    <div class="modal-box wide">
-        <div class="modal-header">
-            <h3 id="adminStudentAttendanceTitle">سجل حضور الطالب</h3>
-            <button id="closeAdminStudentAttendanceModal" class="close" type="button">✕</button>
-        </div>
-
-        <div class="cards" style="grid-template-columns:repeat(3,1fr); margin-bottom:18px;">
-            <div class="card"><div class="card-title">أيام الحضور</div><div id="adminStudentPresentCount" class="card-number">0</div></div>
-            <div class="card"><div class="card-title">أيام الغياب</div><div id="adminStudentAbsentCount" class="card-number">0</div></div>
-            <div class="card"><div class="card-title">أيام الإجازة</div><div id="adminStudentExcusedCount" class="card-number">0</div></div>
-        </div>
-
-        <div class="table-container">
-            <table>
-                <thead><tr><th>التاريخ</th><th>الحالة</th></tr></thead>
-                <tbody id="adminStudentAttendanceHistoryTable"></tbody>
-            </table>
-        </div>
-    </div>
 </div>
 
 
@@ -1815,27 +1916,6 @@ const adminStudentsView =
 
 const adminStudentsTable =
     document.getElementById("adminStudentsTable");
-
-const adminStudentAttendanceModal =
-    document.getElementById("adminStudentAttendanceModal");
-
-const closeAdminStudentAttendanceModal =
-    document.getElementById("closeAdminStudentAttendanceModal");
-
-const adminStudentAttendanceTitle =
-    document.getElementById("adminStudentAttendanceTitle");
-
-const adminStudentPresentCount =
-    document.getElementById("adminStudentPresentCount");
-
-const adminStudentAbsentCount =
-    document.getElementById("adminStudentAbsentCount");
-
-const adminStudentExcusedCount =
-    document.getElementById("adminStudentExcusedCount");
-
-const adminStudentAttendanceHistoryTable =
-    document.getElementById("adminStudentAttendanceHistoryTable");
 
 const adminClassView =
     document.getElementById("adminClassView");
@@ -2553,6 +2633,8 @@ async function loadUser(userId) {
 
     }
 
+    await loadAnnouncementsInto(document.getElementById("studentAnnouncementsList"), false);
+
     await loadStudentLessons();
 
     await loadStudentAttendance();
@@ -2753,14 +2835,24 @@ function switchTeacherTab(tab) {
 
     teacherTabLessons.classList.remove("active");
 
+    document.getElementById("teacherTabAnnouncements").classList.remove("active");
+
     teacherStudentsView.classList.add("hidden");
 
     teacherAttendanceView.classList.add("hidden");
 
     teacherLessonsView.classList.add("hidden");
 
+    document.getElementById("teacherAnnouncementsView").classList.add("hidden");
 
-    if (tab === "students") {
+
+    if (tab === "announcements") {
+
+        document.getElementById("teacherTabAnnouncements").classList.add("active");
+
+        document.getElementById("teacherAnnouncementsView").classList.remove("hidden");
+
+    } else if (tab === "students") {
 
         teacherTabStudents.classList.add("active");
 
@@ -2838,6 +2930,18 @@ teacherTabLessons.addEventListener(
     function() {
 
         switchTeacherTab("lessons");
+
+    }
+);
+
+
+document.getElementById("teacherTabAnnouncements").addEventListener(
+    "click",
+    function() {
+
+        switchTeacherTab("announcements");
+
+        loadAnnouncementsInto(document.getElementById("teacherAnnList"), true);
 
     }
 );
@@ -3569,6 +3673,36 @@ lessonForm.addEventListener(
             }
 
 
+            let imageUrl = null;
+
+            const imageFile =
+                document.getElementById("lessonImage").files[0] || null;
+
+            if (imageFile) {
+
+                try {
+
+                    imageUrl =
+                        await uploadImageFile(imageFile);
+
+                } catch (imgErr) {
+
+                    console.error("IMAGE UPLOAD ERROR:", imgErr);
+
+                    showMessage(
+                        lessonMessage,
+                        "تعذر رفع الصورة — تفاصيل الخطأ: " +
+                            (imgErr.message || JSON.stringify(imgErr)),
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
             const {
                 error: insertError
             } =
@@ -3580,7 +3714,8 @@ lessonForm.addEventListener(
                         title,
                         content: content || null,
                         file_url: fileUrl,
-                        file_name: fileName
+                        file_name: fileName,
+                        image_url: imageUrl
                     });
 
 
@@ -4166,6 +4301,398 @@ async function downloadLessonFile(url, filename, button) {
 }
 
 
+/* =====================================================
+   الصور (مشترك بين الدروس والتبليغات)
+===================================================== */
+
+async function uploadImageFile(file) {
+
+    if (!file.type || !file.type.startsWith("image/")) {
+
+        throw new Error("الملف المختار ليس صورة.");
+
+    }
+
+    if (file.size > 8 * 1024 * 1024) {
+
+        throw new Error("حجم الصورة كبير (الحد الأقصى 8 ميغابايت).");
+
+    }
+
+
+    const extMatch =
+        file.name.match(/\.([a-zA-Z0-9]+)$/);
+
+    const ext =
+        extMatch ? extMatch[1].toLowerCase() : "jpg";
+
+    const safeRandom =
+        Math.random().toString(36).slice(2, 10);
+
+    const path =
+        `img_${Date.now()}_${safeRandom}.${ext}`;
+
+
+    const { error } =
+        await db.storage
+            .from("lesson-files")
+            .upload(path, file);
+
+    if (error) {
+
+        throw error;
+
+    }
+
+
+    const { data } =
+        db.storage
+            .from("lesson-files")
+            .getPublicUrl(path);
+
+    return data.publicUrl;
+
+}
+
+
+function appendCardImage(card, url) {
+
+    const img =
+        document.createElement("img");
+
+    img.src = url;
+
+    img.alt = "صورة مرفقة";
+
+    img.loading = "lazy";
+
+    img.className = "card-image";
+
+    img.addEventListener(
+        "click",
+        function() {
+
+            window.open(url, "_blank", "noopener");
+
+        }
+    );
+
+    card.appendChild(img);
+
+}
+
+
+/* =====================================================
+   التبليغات (Announcements)
+===================================================== */
+
+function buildAnnouncementCard(ann, allowDelete, reloadFn) {
+
+    const date =
+        new Date(ann.created_at)
+            .toLocaleDateString("ar-IQ");
+
+    const card =
+        document.createElement("div");
+
+    card.className = "lesson-card";
+
+
+    card.innerHTML = `
+        <div class="lesson-card-header">
+            <h4>${escapeHtml(ann.title)}</h4>
+            <span class="lesson-meta">
+                ${escapeHtml(ann.author_name)} · ${date}
+            </span>
+        </div>
+        ${
+            ann.content
+                ? `<div class="lesson-body">${escapeHtml(ann.content)}</div>`
+                : ""
+        }
+    `;
+
+
+    if (ann.image_url) {
+
+        appendCardImage(card, ann.image_url);
+
+    }
+
+
+    const canDelete =
+        allowDelete &&
+        currentProfile &&
+        (ann.author_id === currentProfile.id ||
+            currentProfile.role === "admin");
+
+    if (canDelete) {
+
+        const deleteBtn =
+            document.createElement("button");
+
+        deleteBtn.className = "btn-danger-small";
+
+        deleteBtn.style.marginTop = "10px";
+
+        deleteBtn.textContent = "حذف التبليغ";
+
+        deleteBtn.addEventListener(
+            "click",
+            async function() {
+
+                if (!confirm("هل تريد حذف هذا التبليغ؟")) return;
+
+                const { error } =
+                    await db
+                        .from("announcements")
+                        .delete()
+                        .eq("id", ann.id);
+
+                if (error) {
+
+                    console.error(error);
+
+                    alert("تعذر حذف التبليغ: " + error.message);
+
+                    return;
+
+                }
+
+                await reloadFn();
+
+            }
+        );
+
+        card.appendChild(deleteBtn);
+
+    }
+
+
+    return card;
+
+}
+
+
+async function loadAnnouncementsInto(listEl, allowDelete) {
+
+    listEl.innerHTML =
+        `<div class="empty-note">جارٍ التحميل...</div>`;
+
+
+    const {
+        data,
+        error
+    } =
+        await db
+            .from("announcements")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+
+    if (error) {
+
+        console.error(error);
+
+        listEl.innerHTML =
+            `<div class="empty-note">تعذر تحميل التبليغات — ${escapeHtml(error.message)}</div>`;
+
+        return;
+
+    }
+
+
+    if (data.length === 0) {
+
+        listEl.innerHTML =
+            `<div class="empty-note">لا توجد تبليغات بعد.</div>`;
+
+        return;
+
+    }
+
+
+    listEl.innerHTML = "";
+
+    data.forEach(function(ann) {
+
+        listEl.appendChild(
+            buildAnnouncementCard(
+                ann,
+                allowDelete,
+                function() {
+
+                    return loadAnnouncementsInto(listEl, allowDelete);
+
+                }
+            )
+        );
+
+    });
+
+}
+
+
+function setupAnnouncementForm(ids, listEl) {
+
+    const form = document.getElementById(ids.form);
+
+    const titleEl = document.getElementById(ids.title);
+
+    const contentEl = document.getElementById(ids.content);
+
+    const imageEl = document.getElementById(ids.image);
+
+    const btn = document.getElementById(ids.btn);
+
+    const msg = document.getElementById(ids.msg);
+
+
+    form.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            hideMessage(msg);
+
+
+            const title = titleEl.value.trim();
+
+            const content = contentEl.value.trim();
+
+            const imageFile = imageEl.files[0] || null;
+
+
+            if (!title) {
+
+                showMessage(msg, "يرجى إدخال عنوان التبليغ.", "error");
+
+                return;
+
+            }
+
+            if (!currentProfile) {
+
+                showMessage(
+                    msg,
+                    "انتهت جلسة الدخول. سجّل الخروج والدخول من جديد.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            btn.disabled = true;
+
+            btn.textContent = "جارٍ الإرسال...";
+
+
+            try {
+
+                let imageUrl = null;
+
+                if (imageFile) {
+
+                    try {
+
+                        imageUrl =
+                            await uploadImageFile(imageFile);
+
+                    } catch (imgErr) {
+
+                        console.error("IMAGE UPLOAD ERROR:", imgErr);
+
+                        showMessage(
+                            msg,
+                            "تعذر رفع الصورة — تفاصيل الخطأ: " +
+                                (imgErr.message || JSON.stringify(imgErr)),
+                            "error"
+                        );
+
+                        return;
+
+                    }
+
+                }
+
+
+                const { error } =
+                    await db
+                        .from("announcements")
+                        .insert({
+                            author_id: currentProfile.id,
+                            author_name: currentProfile.full_name,
+                            title: title,
+                            content: content || null,
+                            image_url: imageUrl
+                        });
+
+
+                if (error) {
+
+                    console.error(error);
+
+                    showMessage(
+                        msg,
+                        "تعذر إرسال التبليغ — تفاصيل الخطأ: " + error.message,
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                showMessage(msg, "تم إرسال التبليغ بنجاح.", "success");
+
+                form.reset();
+
+                await loadAnnouncementsInto(listEl, true);
+
+
+            } finally {
+
+                btn.disabled = false;
+
+                btn.textContent = "إرسال التبليغ";
+
+            }
+
+        }
+    );
+
+}
+
+
+setupAnnouncementForm(
+    {
+        form: "teacherAnnForm",
+        title: "teacherAnnTitle",
+        content: "teacherAnnContent",
+        image: "teacherAnnImage",
+        btn: "teacherAnnBtn",
+        msg: "teacherAnnMessage"
+    },
+    document.getElementById("teacherAnnList")
+);
+
+
+setupAnnouncementForm(
+    {
+        form: "adminAnnForm",
+        title: "adminAnnTitle",
+        content: "adminAnnContent",
+        image: "adminAnnImage",
+        btn: "adminAnnBtn",
+        msg: "adminAnnMessage"
+    },
+    document.getElementById("adminAnnList")
+);
+
+
 function buildLessonCard(lesson, allowDelete) {
 
     const date =
@@ -4198,6 +4725,13 @@ function buildLessonCard(lesson, allowDelete) {
                 : ""
         }
     `;
+
+
+    if (lesson.image_url) {
+
+        appendCardImage(card, lesson.image_url);
+
+    }
 
 
     if (lesson.file_url) {
@@ -4394,6 +4928,10 @@ function switchAdminView(view) {
 
     adminNavLessons.classList.remove("active");
 
+    document.getElementById("adminNavAnnouncements").classList.remove("active");
+
+    document.getElementById("adminAnnouncementsView").classList.add("hidden");
+
     adminNavAttendance.classList.remove("active");
 
     adminNavLeaves.classList.remove("active");
@@ -4434,6 +4972,12 @@ function switchAdminView(view) {
         adminNavClass.classList.add("active");
 
         adminClassView.classList.remove("hidden");
+
+    } else if (view === "announcements") {
+
+        document.getElementById("adminNavAnnouncements").classList.add("active");
+
+        document.getElementById("adminAnnouncementsView").classList.remove("hidden");
 
     } else if (view === "lessons") {
 
@@ -4511,6 +5055,18 @@ adminNavClass.addEventListener(
         switchAdminView("class");
 
         loadClassOverview();
+
+    }
+);
+
+
+document.getElementById("adminNavAnnouncements").addEventListener(
+    "click",
+    function() {
+
+        switchAdminView("announcements");
+
+        loadAnnouncementsInto(document.getElementById("adminAnnList"), true);
 
     }
 );
@@ -5338,17 +5894,6 @@ function renderStaffOrStudentTable(tableEl, users, role, reloadFn) {
         );
 
 
-        if (role === "student") {
-            const attendanceBtn = document.createElement("button");
-            attendanceBtn.className = "btn-small";
-            attendanceBtn.style.marginLeft = "6px";
-            attendanceBtn.textContent = "سجل الحضور";
-            attendanceBtn.addEventListener("click", function() {
-                openAdminStudentAttendance(user.id, user.full_name);
-            });
-            actionsCell.appendChild(attendanceBtn);
-        }
-
         actionsCell.appendChild(toggleBtn);
 
         actionsCell.appendChild(deleteBtn);
@@ -5358,60 +5903,6 @@ function renderStaffOrStudentTable(tableEl, users, role, reloadFn) {
     });
 
 }
-
-
-/* =====================================================
-   ADMIN: سجل حضور طالب محدد
-===================================================== */
-
-async function openAdminStudentAttendance(studentId, studentName) {
-    adminStudentAttendanceTitle.textContent = "سجل الحضور: " + studentName;
-    adminStudentPresentCount.textContent = "0";
-    adminStudentAbsentCount.textContent = "0";
-    adminStudentExcusedCount.textContent = "0";
-    adminStudentAttendanceHistoryTable.innerHTML = `<tr><td colspan="2">جارٍ تحميل سجل الحضور...</td></tr>`;
-    adminStudentAttendanceModal.classList.remove("hidden");
-
-    const { data, error } = await db
-        .from("attendance")
-        .select("date, status")
-        .eq("student_id", studentId)
-        .order("date", { ascending: false });
-
-    if (error) {
-        console.error(error);
-        adminStudentAttendanceHistoryTable.innerHTML = `<tr><td colspan="2">تعذر تحميل سجل الحضور — ${escapeHtml(error.message || "")}</td></tr>`;
-        return;
-    }
-
-    const records = data || [];
-    adminStudentPresentCount.textContent = records.filter(function(row) { return row.status === "present"; }).length;
-    adminStudentAbsentCount.textContent = records.filter(function(row) { return row.status === "absent"; }).length;
-    adminStudentExcusedCount.textContent = records.filter(function(row) { return row.status === "excused"; }).length;
-
-    if (records.length === 0) {
-        adminStudentAttendanceHistoryTable.innerHTML = `<tr><td colspan="2">لا يوجد سجل حضور لهذا الطالب بعد.</td></tr>`;
-        return;
-    }
-
-    const labels = { present: "حاضر", absent: "غائب", excused: "معذور" };
-    adminStudentAttendanceHistoryTable.innerHTML = "";
-    records.forEach(function(row) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td>${escapeHtml(row.date)}</td><td><span class="badge badge-${row.status}">${labels[row.status] || escapeHtml(row.status || "—")}</span></td>`;
-        adminStudentAttendanceHistoryTable.appendChild(tr);
-    });
-}
-
-closeAdminStudentAttendanceModal.addEventListener("click", function() {
-    adminStudentAttendanceModal.classList.add("hidden");
-});
-
-adminStudentAttendanceModal.addEventListener("click", function(event) {
-    if (event.target === adminStudentAttendanceModal) {
-        adminStudentAttendanceModal.classList.add("hidden");
-    }
-});
 
 
 /* =====================================================
